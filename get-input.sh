@@ -45,4 +45,4 @@ do
   sleep 0.1
 done
 
-curl --cookie "session=$(cat session.txt)" https://adventofcode.com/2024/day/"$1"/input > "$dir/input"
+curl --cookie "session=$(cat session.txt)" https://adventofcode.com/2024/day/"$day"/input > "$dir/input"
