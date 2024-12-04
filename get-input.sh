@@ -5,10 +5,15 @@
 # imprecise integer math.
 declare -r slop=5
 
-if [[ $# -lt 1 ]]
+if [[ $# -eq 0 ]]
 then
-  echo "Usage: $0 day"
-  exit
+  declare -i day="$(TZ='America/Detroit' date +%d)"
+  day+=1
+elif [[ $# -gt 1 ]]
+then
+  echo "Usage: $0 [day]"
+else
+  declare -i day="$1"
 fi
 
 if [[ ! -f session.txt ]]
@@ -17,13 +22,15 @@ then
   contents of the session cookie and store it in a file named session.txt"
 fi
 
-dir="$1"
-if [[ $1 -lt 10 ]]
+echo "Will download day $day"
+
+dir="$day"
+if [[ $day -lt 10 ]]
 then
-  dir="0$1"
+  dir="0$day"
 fi
 
-declare -i target_secs=$(date --date="Dec $1, 2024 12:00:00AM EST" +%s)
+declare -i target_secs=$(date --date="Dec $day, 2024 12:00:00AM EST" +%s)
 target_secs+=$slop
 
 while (((target_secs - EPOCHSECONDS) > slop))
