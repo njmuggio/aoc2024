@@ -7,7 +7,7 @@ declare -r slop=5
 
 if [[ $# -eq 0 ]]
 then
-  declare -i day="$(TZ='America/Detroit' date +%d)"
+  declare -i day="$(TZ='America/Detroit' date +%-d)"
   day+=1
 elif [[ $# -gt 1 ]]
 then
